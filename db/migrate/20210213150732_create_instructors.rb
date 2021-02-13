@@ -6,5 +6,4 @@ class CreateInstructors < ActiveRecord::Migration[5.2]
 
   end 
 
-  end
 end
