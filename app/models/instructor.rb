@@ -1,3 +1,3 @@
-class Teacher < ActiveRecord::Base
-
+class Instructor < ActiveRecord::Base
+    has_many :courses
 end
