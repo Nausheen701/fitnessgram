@@ -1,1 +1,0 @@
-Instructor.create(name: 'test')
