@@ -1,24 +1,25 @@
-class PostsController < ApplicationController
+class DailyUpdatesController < ApplicationController
 
+    # allows users to post updates
     # <%= %> :interpolates ruby code in views (what our user sees )
     # <% %>  :interpolates ruby code in views but not meant to be rendered (what our views process)
-get '/posts' do
-    @posts = Post.all
-    erb :'posts/index'
+get '/daily_updates' do
+    # @post = Post.all
+    erb :'daily_updates/index'
 end
 
 # user made a request to view form to add a new post
-get '/posts/new' do
-    erb :'posts/new'
+get '/daily_updates/new' do
+    erb :'daily_updates/new'
 end
 
 # show route
-get '/posts/:id' do
+get '/daily_updates/:id' do
     #can grab the id's value
     # params[:id]
     # {id: 1}
-    @post = Post.find_by(id:params[:id])
-    erb :'posts/show'
+    @daily_update = DailyUpdate.find_by(id:params[:id])
+    erb :'daily_updates/show'
 end
 
 
@@ -26,12 +27,12 @@ end
 # show route
 
 # user submitted new post form
-post '/posts' do
+post '/daily_updates' do
     # @post = Post.new(title: params[:title], content: params[:content])
     # @post = Post.new(params)
     # @post.save
-    @post = Post.create(params)
-    redirect "posts/#{post.id}"
+    @pdaily_update = DailyUpdate.create(params)
+    redirect "daily_updates/#{daily_update.id}"
     # create the new post
     # redirect user somewhere
     # erb :'posts/new'
@@ -39,11 +40,10 @@ end
 
 # user requested to see an edit form
 
-get 'posts/:id/edit' do
+get 'daily_updates/:id/edit' do
     # retrieve the object
     # autofill form with the details of 
     # render to user to fill out
-
 end
 
 
