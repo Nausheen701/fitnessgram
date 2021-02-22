@@ -1,4 +1,6 @@
 ENV['SINATRA_ENV'] ||= "development"
+#set the environment to development
+# calls what is in env file
 
 require 'bundler/setup'
 Bundler.require(:default, ENV['SINATRA_ENV'])

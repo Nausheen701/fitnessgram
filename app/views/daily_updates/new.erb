@@ -1,7 +1,10 @@
 # responsible for rendering the post form
 
-<form action="/posts" method="post">
-    Title: <input type="text" name="title">
-    Content: <textarea name="content" ><text area>
+<form action="/daily_updates" method="post">
+    Enter Workout Type: <input type="text" workout_type="workout_type">
+    <br>
+    Enter Workout Minutes: <input type="number" workout_minutes="workout_minutes">
+    <br>
+    Enter Calories Burned: <input type="number" calories_burned="calories_burned">
     <input type="submit" value="Create Daily Update">
 </form>

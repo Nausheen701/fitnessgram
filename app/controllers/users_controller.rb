@@ -2,7 +2,7 @@
 # sign up '
 # login
 # logout 'logout'
-class DailyUpdatesController < ApplicationController
+class UsersController < ApplicationController
    
     # name of class is the model name plus controller
    
@@ -13,7 +13,7 @@ class DailyUpdatesController < ApplicationController
     post '/signup' do         #process the signup form
     # receive data from the form inside of params hash
     # create new author object with the data
-       
+    #    binding.pry
     user = User.new(params)
     
     # validate user object 
@@ -24,7 +24,7 @@ class DailyUpdatesController < ApplicationController
         else 
             user.save
             session[:user_id] = user.id #logging user in
-            redirect '/posts'
+            redirect '/daily_updates/new' 
         end
     end
             # if user is valid 
@@ -40,6 +40,16 @@ class DailyUpdatesController < ApplicationController
 
     post '/login' do 
         user = User.find_by_username(params[:username])
+        erb :"daily_updates/new"
     end
+
+    get '/daily_updates' do #render login form 
+        erb :"daily_updates/new"
+    end
+
+    get '/success' do 
+        erb :"daily_updates/success"
+    end
+
 
 end
