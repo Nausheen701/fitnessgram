@@ -1,2 +1,19 @@
-<%= @daily_update.title %>
-<%= @daily_update.content %>
+<h1> DAILY UPDATE</h1>
+<%= @daily_update.timestamp %>
+
+<body>CAPTION: </body><%= @daily_update.caption %>
+
+<br>
+<body>WORKOUT TYPE: </body><%= @daily_update.workout_type %>
+<br>
+<body>WORKOUT MINUTES: </body><%= @daily_update.workout_minutes %>
+<br>
+<body>CALORIES BURNED: </body><%= @daily_update.calories_burned %>
+
+<br>
+<br>
+
+<a href="/edit"><button>Edit this update</button></a>
+<br>
+<br>
+<a href="/delete"><button>Delete this update</button></a>

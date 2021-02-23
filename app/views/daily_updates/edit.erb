@@ -1,0 +1,7 @@
+
+<form action="/daily_updates/<%= @daily_update.id %>" method="post">
+    <input type="hidden" name="_method" value="patch">
+    Title: <input type="text" name="title" value="<%= @daily_updates.title %>">
+    Content: <textarea name="content"><%= @daily_update.content %></textarea>
+    <input type="submit" value="Edit Daily Update">
+</form>

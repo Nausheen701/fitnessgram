@@ -1,4 +1,15 @@
-# combination of ERB + HTML
 
-index page
+
+<% @daily_updates.each do |p| %>
+    <body>CAPTION:</body><p><%= p.caption %> - <%= p.id %> </p> 
+    <br>
+    <body>WORKOUT TYPE:</body><p><%= p.workout_type %> - <%= p.id %> </p> 
+    </p><body>MINUTES:</body><p><%= p.workout_minutes %> - <%= p.id %> 
+    <br>
+    <br>
+    <body>CALORIES BURNED:</body><p><%= p.calories_burned %> - <%= p.id %> </p>
+    <br>
+    <br>    
+<% end %>
+
 
