@@ -11,7 +11,6 @@ end
 # user made a request to view form to add a new post
 get '/daily_updates/new' do
     erb :'daily_updates/new'
-    redirect '/daily_updates/success' 
 end
         
 
@@ -20,7 +19,7 @@ get '/daily_updates/:id' do
     #can grab the id's value
     # params[:id]
     # {id: 1}
-    @daily_update = DailyUpdate.find_by(id:params[:id])
+    @daily_update = DailyUpdate.find_by(id: params[:id])
     erb :'daily_updates/show'
 end
 
@@ -34,7 +33,7 @@ post '/daily_updates' do
     # @post = Post.new(params)
     # @post.save
     @daily_update = DailyUpdate.create(params)
-    redirect "daily_updates/#{daily_update.id}"
+    redirect "daily_updates/#{@daily_update.id}"
     # create the new post
     # redirect user somewhere
     # erb :'posts/new'
@@ -56,6 +55,12 @@ end
     # get '/success' do 
     #     erb :"daily_updates/success" 
     # end
+
+private 
+
+    def get_daily_update
+        @daily_update = DailyUpdate.find_by(id:params[:id])
+    end 
 
 
 end

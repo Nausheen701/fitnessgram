@@ -42,7 +42,7 @@ class UsersController < ApplicationController
         user = User.find_by_username(params[:username])
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
-            erb :"daily_updates/new" #This is in daily_updates_controller
+            redirect "daily_updates/new" #This is in daily_updates_controller
         else
             # flash[:message] = "Incorrect login. Enter the correct username and password."
             redirect '/login'
@@ -60,7 +60,7 @@ class UsersController < ApplicationController
 
     get '/logout' do
         session.clear
-        erb :'/users/login'
+       redirect '/login'
     end
 
 

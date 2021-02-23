@@ -1,3 +1,3 @@
-class Daily_Update < ActiveRecord::Base
+class DailyUpdate < ActiveRecord::Base
     belongs_to :user
 end

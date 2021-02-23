@@ -15,10 +15,7 @@ class ApplicationController < Sinatra::Base
 
   helpers do 
 
-    def get_daily_update
-      @daily_update = DailyUpdate.find_by(id:params[:id])
 
-    end 
 
   end 
 
