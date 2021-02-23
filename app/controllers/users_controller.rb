@@ -40,16 +40,29 @@ class UsersController < ApplicationController
 
     post '/login' do 
         user = User.find_by_username(params[:username])
-        erb :"daily_updates/new"
+        if user && user.authenticate(params[:password])
+            session[:user_id] = user.id
+            erb :"daily_updates/new" #This is in daily_updates_controller
+        else
+            # flash[:message] = "Incorrect login. Enter the correct username and password."
+            redirect '/login'
+        end
     end
 
-    get '/daily_updates' do #render login form 
-        erb :"daily_updates/new"
+    # get '/daily_updates' do #render login form 
+    #     erb :"daily_updates/new"
+    #     redirect '/daily_updates/success' #This is not working
+    # end
+
+    # get '/success' do 
+    #     erb :"daily_updates/success" 
+    # end
+
+    get '/logout' do
+        session.clear
+        erb :'/users/login'
     end
 
-    get '/success' do 
-        erb :"daily_updates/success"
-    end
 
 
 end

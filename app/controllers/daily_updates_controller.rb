@@ -11,7 +11,9 @@ end
 # user made a request to view form to add a new post
 get '/daily_updates/new' do
     erb :'daily_updates/new'
+    redirect '/daily_updates/success' 
 end
+        
 
 # show route
 get '/daily_updates/:id' do
@@ -31,7 +33,7 @@ post '/daily_updates' do
     # @post = Post.new(title: params[:title], content: params[:content])
     # @post = Post.new(params)
     # @post.save
-    @pdaily_update = DailyUpdate.create(params)
+    @daily_update = DailyUpdate.create(params)
     redirect "daily_updates/#{daily_update.id}"
     # create the new post
     # redirect user somewhere
@@ -46,7 +48,14 @@ get 'daily_updates/:id/edit' do
     # render to user to fill out
 end
 
+  # get '/daily_updates' do #render login form 
+    #     erb :"daily_updates/new"
+    #     redirect '/daily_updates/success' #This is not working
+    # end
 
+    # get '/success' do 
+    #     erb :"daily_updates/success" 
+    # end
 
 
 end
