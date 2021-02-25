@@ -23,7 +23,7 @@ get '/daily_updates/:id' do
     #can grab the id's value
     # params[:id]
     # {id: 1}
-    @daily_update = DailyUpdate.find_by(id: params[:id])
+    get_daily_update
     erb :'daily_updates/show'
 end
 
@@ -32,11 +32,11 @@ end
 
 # user submitted new post form
 post '/daily_updates' do
-    # @post = Post.new(title: params[:title], content: params[:content])
-    # @post = Post.new(params)
-    # @post.save
-    @daily_update = DailyUpdate.create(params)
-    redirect "daily_updates/#{@daily_update.id}"
+    # @daily_update = DailyUpdate.create(params)
+    @daily_update = DailyUpdate.new(params) #.new & .save
+    @daily_update.user_id = session[:user_id]
+    @daily_update.save
+    redirect "/daily_updates/#{@daily_update.id}"  #must use double quotes when interpolating
     # create the new post
     # redirect user somewhere
     # erb :'posts/new'
@@ -44,9 +44,14 @@ end
 
 # UPDATE
 # user requested to see an edit form
-get 'daily_updates/:id/edit' do
-    @daily_update = DailyUpdate.find_by(id:params[:id])
+get '/daily_updates/:id/edit' do
+    get_daily_update
+    if @daily_update.user == current_user
         erb :"/daily_updates/edit"
+    else 
+        flash[:error] = "You do not have permission to edit another user's daily update."
+        redirect '/daily_updates'
+    end
     # retrieve the object
     # autofill form with the details of that object
     # render to user to fill out
@@ -54,9 +59,15 @@ end
 
 # user just submitted the edit form
 patch '/daily_updates/:id' do 
-    get_daily_update
-    @daily_update.update(title: params[:title], content: params[:content])
-    redirect "/daily_updates/#{@daily_update.id}" 
+    # get_daily_update
+    @daily_update = DailyUpdate.find_by_id(params[:id])
+    if @daily_update.user == current_user
+        @daily_update.update(caption: params[:caption], workout_type: params[:workout_type], workout_minutes: params[:workout_minutes], calories_burned: params[:calories_burned])
+        redirect "/daily_updates/#{@daily_update.id}" 
+    else 
+        flash[:error] = "You do not have permission to edit another user's daily update."
+        redirect '/daily_updates'
+    end
     # @post.update
     # no view 
     # update the particular object with new attributes
@@ -65,7 +76,7 @@ end
 # DELETE
  # user wants to delete an existing post 
  delete '/daily_updates/:id' do 
-    @daily_update = DailyUpdate.find_by(id:params[:id])
+    get_daily_update
     @daily_update.destroy
     redirect '/daily_updates'
     # no view 

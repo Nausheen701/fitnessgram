@@ -6,15 +6,20 @@ class UsersController < ApplicationController
    
     # name of class is the model name plus controller
    
-    get '/signup' do              #render signup form
-        erb :"users/signup"
+    get '/signup' do             #render signup form
+        if logged_in?
+            redirect 'daily_updates'
+        else
+            erb :"users/signup"
+        end
     end
 
     post '/signup' do         #process the signup form
     # receive data from the form inside of params hash
     # create new author object with the data
-    #    binding.pry
     user = User.new(params)
+    binding.pry
+    
     
     # validate user object 
     # if user.username !=""
@@ -35,7 +40,11 @@ class UsersController < ApplicationController
     # check that user is using unique data
 
     get '/login' do #render login form 
-        erb :"users/login"
+        if logged_in?
+            redirect '/daily_updates'
+        else
+            erb :"users/login"
+        end
     end
 
     post '/login' do 
@@ -43,20 +52,13 @@ class UsersController < ApplicationController
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
             redirect "daily_updates/new" #This is in daily_updates_controller
+            # another option is redirect "daily_updates"
         else
-            # flash[:message] = "Incorrect login. Enter the correct username and password."
+         flash[:error] = "Incorrect login. Enter the correct username and password."
             redirect '/login'
         end
     end
 
-    # get '/daily_updates' do #render login form 
-    #     erb :"daily_updates/new"
-    #     redirect '/daily_updates/success' #This is not working
-    # end
-
-    # get '/success' do 
-    #     erb :"daily_updates/success" 
-    # end
 
     get '/logout' do
         session.clear
@@ -66,3 +68,6 @@ class UsersController < ApplicationController
 
 
 end
+
+#  .find can return an error
+#  .find_by_<attr> will return nil if data does not exit

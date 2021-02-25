@@ -1,15 +1,16 @@
 
 
 <% @daily_updates.each do |p| %>
-    <body>CAPTION:</body><p><%= p.caption %> - <%= p.id %> </p> 
-    <br>
-    <body>WORKOUT TYPE:</body><p><%= p.workout_type %> - <%= p.id %> </p> 
-    </p><body>MINUTES:</body><p><%= p.workout_minutes %> - <%= p.id %> 
-    <br>
-    <br>
-    <body>CALORIES BURNED:</body><p><%= p.calories_burned %> - <%= p.id %> </p>
-    <br>
-    <br>    
+    <p><%= p.caption %> - <%= p.id %> 
+   
+        <a href="/daily_updates/<%= p.id%>">View</a> 
+  
+    <% if current_user == p.user %>
+        <a href="/daily_updates/<%= p.id%>/edit">Edit</a> 
+    <% end %>
+</p>
 <% end %>
 
+<a href="/daily_updates/new"><button>Create new daily update</button></a>
+<a href="/logout"><button>Logout</button></a>
 

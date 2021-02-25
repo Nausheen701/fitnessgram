@@ -1,5 +1,5 @@
 <h1> DAILY UPDATE</h1>
-<%= @daily_update.timestamp %>
+
 
 <body>CAPTION: </body><%= @daily_update.caption %>
 
@@ -13,7 +13,14 @@
 <br>
 <br>
 
-<a href="/edit"><button>Edit this update</button></a>
-<br>
-<br>
-<a href="/delete"><button>Delete this update</button></a>
+
+<a href="/daily_updates/<%= @daily_update.id %>/edit"><button>Edit this update</button></a>
+
+<form action="/daily_updates/<%= @daily_update.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete this update">
+</form>
+
+<a href="/daily_updates/new"><button>Create new daily update</button></a>
+<a href="/daily_updates"><button>See all daily updates</button></a>
+<a href="/logout"><button>Logout</button></a>

@@ -1,7 +1,21 @@
 
 <form action="/daily_updates/<%= @daily_update.id %>" method="post">
+
     <input type="hidden" name="_method" value="patch">
-    Title: <input type="text" name="title" value="<%= @daily_updates.title %>">
-    Content: <textarea name="content"><%= @daily_update.content %></textarea>
+    
+     Caption: <input type="text" name="caption" value="<%= @daily_update.caption %>">
+    <br>
+     Workout Type: <input type="text" name="workout_type" value="<%= @daily_update.workout_type %>">
+    <br>
+     Workout Minutes: <input type="number" name="workout_minutes" value="<%= @daily_update.workout_minutes%>">
+    <br>
+     Calories Burned : <input type="number" name="calories_burned" value="<%= @daily_update.calories_burned %>">
+   
     <input type="submit" value="Edit Daily Update">
 </form>
+
+<a href="/daily_updates"><button>See all daily updates</button></a>
+<a href="/logout"><button>Logout</button></a>
+
+
+
