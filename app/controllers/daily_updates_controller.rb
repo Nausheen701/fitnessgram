@@ -61,15 +61,13 @@ end
 patch '/daily_updates/:id' do 
     # get_daily_update
     @daily_update = DailyUpdate.find_by_id(params[:id])
-
-    if @daily_update.user == current_user && !params[:caption].empty? && !params[:workout_type].blank? && !params[:workout_minutes].blank? && !params[:calories_burned].blank? 
+    if @daily_update.user == current_user && !params[:caption].blank? && !params[:workout_type].blank? && !params[:workout_minutes].blank? && !params[:calories_burned].blank? 
         @daily_update.update(caption: params[:caption], workout_type: params[:workout_type], workout_minutes: params[:workout_minutes], calories_burned: params[:calories_burned])
         redirect "/daily_updates/#{@daily_update.id}" 
     else 
         flash[:error] = "You do not have permission to edit another user's daily update."
         redirect '/daily_updates'
     end
-    
     # @post.update
     # no view 
     # update the particular object with new attributes
