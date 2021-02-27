@@ -4,6 +4,7 @@
     <p><%= p.caption %> - <%= p.id %> 
    
         <a href="/daily_updates/<%= p.id%>">View</a> 
+        
   
     <% if current_user == p.user %>
         <a href="/daily_updates/<%= p.id%>/edit">Edit</a> 

@@ -18,13 +18,14 @@ class UsersController < ApplicationController
     # receive data from the form inside of params hash
     # create new author object with the data
     user = User.new(params)
-    binding.pry
-    
-    
     # validate user object 
     # if user.username !=""
     # if user.username.blank?
-        if user.username.blank? || user.email.blank? || user.name.blank? || user.password.blank? || User.find_by_email(params[:email]) || User.find_by_username(params[:username])
+        if user.username.blank? || user.email.blank? || user.name.blank? || user.password.blank? 
+            flash[:error] = "Enter valid data in the signup form. Do not leave any fields blank."
+            redirect '/signup'
+        elsif User.find_by_email(params[:email]) || User.find_by_username(params[:username])
+            flash[:error] = "An account with this email or username already exists. Create a new account or login."
             redirect '/signup'
         else 
             user.save

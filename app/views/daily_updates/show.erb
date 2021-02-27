@@ -1,6 +1,6 @@
 <h1> DAILY UPDATE</h1>
 
-
+<br>
 <body>CAPTION: </body><%= @daily_update.caption %>
 
 <br>
@@ -15,7 +15,6 @@
 
 
 <a href="/daily_updates/<%= @daily_update.id %>/edit"><button>Edit this update</button></a>
-
 <form action="/daily_updates/<%= @daily_update.id %>" method="post">
     <input type="hidden" name="_method" value="delete">
     <input type="submit" value="Delete this update">
