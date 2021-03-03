@@ -35,8 +35,13 @@ post '/daily_updates' do
     # @daily_update = DailyUpdate.create(params)
     @daily_update = DailyUpdate.new(params) #.new & .save
     @daily_update.user_id = session[:user_id]
-    @daily_update.save
-    redirect "/daily_updates/#{@daily_update.id}"  #must use double quotes when interpolating
+    if @daily_update.user == current_user && !params[:caption].empty? && !params[:workout_type].empty? && !params[:workout_minutes].empty? && !params[:calories_burned].empty? 
+        @daily_update.save
+        redirect "/daily_updates/#{@daily_update.id}" 
+    else
+        flash[:error] = "You must complete all fields to create a daily update. Try again."
+        redirect '/daily_updates/new'  #must use double quotes when interpolating
+    end
     # create the new post
     # redirect user somewhere
     # erb :'posts/new'
@@ -61,7 +66,7 @@ end
 patch '/daily_updates/:id' do 
     # get_daily_update
     @daily_update = DailyUpdate.find_by_id(params[:id])
-    if @daily_update.user == current_user && !params[:caption].blank? && !params[:workout_type].blank? && !params[:workout_minutes].blank? && !params[:calories_burned].blank? 
+    if @daily_update.user == current_user && !params[:caption].empty? && !params[:workout_type].empty? && !params[:workout_minutes].empty? && !params[:calories_burned].empty? 
         @daily_update.update(caption: params[:caption], workout_type: params[:workout_type], workout_minutes: params[:workout_minutes], calories_burned: params[:calories_burned])
         redirect "/daily_updates/#{@daily_update.id}" 
     else 
@@ -77,8 +82,13 @@ end
  # user wants to delete an existing post 
  delete '/daily_updates/:id' do 
     get_daily_update
+    if @daily_update.user == current_user
     @daily_update.destroy
     redirect '/daily_updates'
+    else 
+        flash[:error] = "You do not have permission to delete another user's daily update."
+        redirect '/daily_updates'    
+    end
     # no view 
 end 
 
