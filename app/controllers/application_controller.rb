@@ -15,9 +15,9 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
-   helpers do # makes these methods availble to controller and views
 
-      # return the logged in user
+   helpers do 
+
      def current_user # return logged in user 
       @current_user ||= User.find_by_id(session[:user_id]) #memoization
      end 
@@ -29,8 +29,5 @@ class ApplicationController < Sinatra::Base
 
     end 
 
-  # def logout
-  #   session.clear
-  # end
-
+    
 end

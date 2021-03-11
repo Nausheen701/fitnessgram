@@ -1,12 +1,8 @@
-# responsible for anything involving user
-# sign up '
-# login
-# logout 'logout'
+
 class UsersController < ApplicationController
    
-    # name of class is the model name plus controller
    
-    get '/signup' do             #render signup form
+    get '/signup' do             
         if logged_in?
             redirect 'daily_updates'
         else
@@ -14,31 +10,21 @@ class UsersController < ApplicationController
         end
     end
 
-    post '/signup' do         #process the signup form
-    # receive data from the form inside of params hash
-    # create new author object with the data
-    user = User.new(params)
-    # validate user object 
-    # if user.username !=""
-    # if user.username.blank?
+    post '/signup' do         
+    user = User.new(params) 
         if user.username.blank? || user.email.blank? || user.name.blank? || user.password.blank? 
             flash[:error] = "Enter valid data in the signup form. Do not leave any fields blank."
             redirect '/signup'
         elsif User.find_by_email(params[:email]) || User.find_by_username(params[:username])
-            flash[:error] = "An account with this email or username already exists. Create a new account or login."
+            flash[:error] = "Looks like account with this email or username already exists. Create a new account or login."
             redirect '/signup'
         else 
             user.save
             session[:user_id] = user.id #logging user in
-            redirect '/daily_updates/new' 
+            redirect '/daily_updates' 
         end
     end
-            # if user is valid 
-        # persist the new object
-        # redirect them
-    # else
-        # redirect them back to signup page
-    # check that user is using unique data
+            
 
     get '/login' do #render login form 
         if logged_in?
@@ -52,8 +38,7 @@ class UsersController < ApplicationController
         user = User.find_by_username(params[:username])
         if user && user.authenticate(params[:password])
             session[:user_id] = user.id
-            redirect "daily_updates/new" #This is in daily_updates_controller
-            # another option is redirect "daily_updates"
+            redirect "/daily_updates"
         else
          flash[:error] = "Incorrect login. Enter the correct username and password."
             redirect '/login'
@@ -63,6 +48,7 @@ class UsersController < ApplicationController
 
     get '/logout' do
         session.clear
+        flash[:error] = "You have logged out. Login again to continue sharing your fitness journey!"
        redirect '/login'
     end
 

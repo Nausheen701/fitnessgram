@@ -8,10 +8,19 @@
   
     <% if current_user == p.user %>
         <a href="/daily_updates/<%= p.id%>/edit">Edit</a> 
+        <form action="/daily_updates/<%= p.id %>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete this update">
+</form>
+
     <% end %>
+
+
+    
 </p>
 <% end %>
 
 <a href="/daily_updates/new"><button>Create new daily update</button></a>
 <a href="/logout"><button>Logout</button></a>
+
 
